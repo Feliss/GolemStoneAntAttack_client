@@ -16,8 +16,7 @@ void AWorldState_actor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//create object of WorldStateClass
-	WorldStateClass = NewObject<UWorldState>(UWorldState::StaticClass(), FName(TEXT("WorldState_Class")));
+	WorldStateClass = NewObject<UWorldState>(UWorldState::StaticClass(), FName(TEXT("WorldState_Class")));//create object of WorldStateClass
 }
 
 // Called every frame
@@ -38,6 +37,17 @@ void AWorldState_actor::GetTCPValues()
 	FString TCP_Message = TCP_actor->GetTCPMessage();  //TCP_Message = FString("2564|THROW|2.6|-6.2|4.7|250.7|2.f"); //For Test!!! THROW    TCP_Message = FString("2564|DEATH");
 
 	UAntAttackParse::GetParameterStrToWorldStateStruct(TCP_Message, WorldStateClass);//Get values from parsing and live change
+}
+
+//Send TCP Values
+void AWorldState_actor::SendTCPValues(FString CommandSend)
+{
+	if (TCP_actor == NULL) return;
+	if (WorldStateClass == NULL) return;
+
+	FString TextForSendTCP = UAntAttackParse::WorldStateStructToParameterStr(CommandSend, WorldStateClass);
+
+	bool isSend=TCP_actor->SendTCPMessage(TextForSendTCP);
 }
 
 //Show World State Log
@@ -62,3 +72,4 @@ void AWorldState_actor::ShowTCPLog()
 	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MyID=") + FString::FromInt(WorldStateClass->WorldStateInputStruct.MyPlayerID));
 	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("CONNECTED= %s"), WorldStateClass->WorldStateInputStruct.Connected ? TEXT("true") : TEXT("false")));
 }
+

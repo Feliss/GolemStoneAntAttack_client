@@ -23,8 +23,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = TCP_actor)
 		ATCP_actor* TCP_actor;
 
+	UFUNCTION(BlueprintCallable, Category = TCP_gameOperations)
 	void GetTCPValues();
+	UFUNCTION(BlueprintCallable, Category = TCP_gameOperations)
+	void SendTCPValues(FString CommandSend);
 	void ShowTCPLog();
+
 
 	AWorldState_actor();// Sets default values for this actor's properties
 	virtual void BeginPlay() override;// Called when the game starts or when spawned

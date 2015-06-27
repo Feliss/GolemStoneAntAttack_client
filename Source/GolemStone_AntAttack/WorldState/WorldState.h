@@ -10,20 +10,20 @@
  */
 
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FDirectMoveStruct
 {
 	GENERATED_USTRUCT_BODY()
 
 	//|X|Y|Z|SPEED|ACCELERATION
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FVector Direction;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		float Speed;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		float Acceleration;
 
 	//defaults
@@ -37,42 +37,42 @@ struct FDirectMoveStruct
 
 
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FWorldStateOutputStruct
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Connected;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FString NickName;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FVector Location;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FDirectMoveStruct Move;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FVector Stop;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Pick;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FDirectMoveStruct Throw;
 
-	UPROPERTY()
-		bool Hit; //PlayerID is hit
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
+		int32 HitID; //PlayerID is hit
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Death; //PlayerID is Death
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Disconnect; //PlayerID is Revive
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FString ErrorText; //PlayerID is Revive
 
 	//defaults
@@ -83,7 +83,7 @@ struct FWorldStateOutputStruct
 		Location = FVector(0.f, 0.f, 0.f);
 		Stop = FVector(0.f, 0.f, 0.f);
 		Pick = false;
-		Hit = false;
+		HitID = 0;
 		Death = false;
 		Disconnect = false;
 		ErrorText = FString("");
@@ -92,51 +92,51 @@ struct FWorldStateOutputStruct
 
 
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FWorldStateInputStruct
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Connected;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		int32 MessagePlayerID;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		int32 MyPlayerID;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FString NickName;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FVector Location;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FDirectMoveStruct Move;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FVector Stop;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Pick;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FDirectMoveStruct Throw;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Hit; //PlayerID is hit
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Death; //PlayerID is Death
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Revive; //PlayerID is Revive
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Disconnect; //PlayerID is Revive
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FString ErrorText; //PlayerID is Revive
 
 	//defaults

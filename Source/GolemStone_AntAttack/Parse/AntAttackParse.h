@@ -19,5 +19,6 @@ class GOLEMSTONE_ANTATTACK_API UAntAttackParse : public UObject
 public:
 
 	static void GetParameterStrToWorldStateStruct(FString InputString, UWorldState* WorldStateClass);
-	
+	static FString WorldStateStructToParameterStr(FString CommandText, UWorldState* WorldStateClass);
+
 };

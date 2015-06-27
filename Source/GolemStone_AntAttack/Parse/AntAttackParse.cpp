@@ -9,6 +9,7 @@
 void UAntAttackParse::GetParameterStrToWorldStateStruct(FString InputString, UWorldState* WorldStateClass)
 {
 	if (InputString == "") return;
+	if (WorldStateClass == NULL) return;
 
 	//const TCHAR* Delims[] = {TEXT("|")};
 	TArray<FString> ParsedStrings;
@@ -97,4 +98,55 @@ void UAntAttackParse::GetParameterStrToWorldStateStruct(FString InputString, UWo
 	//GEngine->AddOnScreenDebugMessage(-1, 0.01, FColor::Yellow, TEXT("InputString=") + InputString);
 	//GEngine->AddOnScreenDebugMessage(-1, 0.01, FColor::Yellow, TEXT("InputString=") + InputString);
 	//GEngine->AddOnScreenDebugMessage(-1, 0.01, FColor::Yellow, FString::FromInt(ParsedStrings.Num()));
+}
+
+//Parameter to text
+FString UAntAttackParse::WorldStateStructToParameterStr(FString CommandText, UWorldState* WorldStateClass)
+{
+	if (CommandText == "") return "ERROR|noCommandText#1";
+	if (WorldStateClass == NULL) return "ERROR|NoWorldStateClass";
+
+	if (CommandText == "ERROR")
+		return CommandText + "|" + WorldStateClass->WorldStateOutputStruct.ErrorText;
+
+	if (CommandText == "CONNECT")
+		return CommandText + "|" + WorldStateClass->WorldStateOutputStruct.NickName;
+
+	if (CommandText == "LOCATION")
+		return CommandText + "|" + FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Location.X) + "|" + 
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Location.Y) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Location.Z);
+
+	if (CommandText == "MOVE")
+		return CommandText + "|" + FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Move.Direction.X) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Move.Direction.Y) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Move.Direction.Z) + "|" + 
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Move.Speed) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Move.Acceleration);
+
+	if (CommandText == "STOP")
+		return CommandText + "|" + FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Stop.X) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Stop.Y) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Stop.Z);
+
+	if (CommandText == "PICK")
+		return CommandText;
+
+	if (CommandText == "THROW")
+		return CommandText + "|" + FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Throw.Direction.X) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Throw.Direction.Y) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Throw.Direction.Z) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Throw.Speed) + "|" +
+		FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Throw.Acceleration);
+
+	if (CommandText == "HIT")
+		return CommandText + "|" + FString::FromInt(WorldStateClass->WorldStateOutputStruct.HitID);
+
+	if (CommandText == "DEATH")
+		return CommandText;
+
+	if (CommandText == "DISCONNECT")
+		return CommandText;
+
+	return "ERROR|noCommandText#2";
 }
