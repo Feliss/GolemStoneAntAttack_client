@@ -28,6 +28,12 @@ void AWorldState_actor::Tick(float DeltaTime)
 	GetTCPValues();//Get values from TCP to WorldStateClass
 }
 
+// Connect to TCP 
+bool AWorldState_actor::ConnectToTCP(FString IPAdress, int32 Port)
+{
+	return TCP_actor->ConnectToTCP(IPAdress, Port);
+}
+
 // Get TCP Values
 void AWorldState_actor::GetTCPValues()
 {
@@ -40,14 +46,14 @@ void AWorldState_actor::GetTCPValues()
 }
 
 //Send TCP Values
-void AWorldState_actor::SendTCPValues(FString CommandSend)
+bool AWorldState_actor::SendTCPValues(FString CommandSend)
 {
-	if (TCP_actor == NULL) return;
-	if (WorldStateClass == NULL) return;
+	if (TCP_actor == NULL) return false;
+	if (WorldStateClass == NULL) return false;
 
 	FString TextForSendTCP = UAntAttackParse::WorldStateStructToParameterStr(CommandSend, WorldStateClass);
 
-	bool isSend=TCP_actor->SendTCPMessage(TextForSendTCP);
+	return TCP_actor->SendTCPMessage(TextForSendTCP);
 }
 
 //Show World State Log

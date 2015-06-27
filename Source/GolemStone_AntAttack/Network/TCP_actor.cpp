@@ -34,18 +34,21 @@ void ATCP_actor::Tick( float DeltaTime )
 //Client Connection to TCP
 bool ATCP_actor::ConnectToTCP(FString IPAdress, int32 Port)
 {
-	Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false);
+	if (Socket == NULL) 
+	Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false); 
+	Socket->Wait(ESocketWaitConditions::WaitForWrite, 0.2);
+	
 	FIPv4Address IPv4Address;
 	bool isIPAdressParse = FIPv4Address::Parse(IPAdress, IPv4Address);
 
 	if (!isIPAdressParse) return false;
-
+	
 	TSharedRef<FInternetAddr> InternetAddr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
 	InternetAddr->SetIp(IPv4Address.GetValue());
 	InternetAddr->SetPort(Port);
 
 	bool connected = Socket->Connect(*InternetAddr);//connect
-
+	
 	if (connected)
 		return true;
 	else

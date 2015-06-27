@@ -24,9 +24,12 @@ public:
 		ATCP_actor* TCP_actor;
 
 	UFUNCTION(BlueprintCallable, Category = TCP_gameOperations)
-	void GetTCPValues();
+		bool ConnectToTCP(FString IPAdress, int32 Port);
 	UFUNCTION(BlueprintCallable, Category = TCP_gameOperations)
-	void SendTCPValues(FString CommandSend);
+		void GetTCPValues();
+	UFUNCTION(BlueprintCallable, Category = TCP_gameOperations)
+		bool SendTCPValues(FString CommandSend);
+
 	void ShowTCPLog();
 
 
