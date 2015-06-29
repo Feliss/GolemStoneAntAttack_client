@@ -53,6 +53,9 @@ bool AWorldState_actor::SendTCPValues(FString CommandSend)
 
 	FString TextForSendTCP = UAntAttackParse::WorldStateStructToParameterStr(CommandSend, WorldStateClass);
 
+	if (ShowSendMessage)
+		GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Yellow, TextForSendTCP);
+
 	return TCP_actor->SendTCPMessage(TextForSendTCP);
 }
 

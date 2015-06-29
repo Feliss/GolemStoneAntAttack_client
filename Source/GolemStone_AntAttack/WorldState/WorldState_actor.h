@@ -16,6 +16,8 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = WorldState)
 		bool isShowTCPLog = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = WorldState)
+		bool ShowSendMessage = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = WorldState)
 		class UWorldState* WorldStateClass;

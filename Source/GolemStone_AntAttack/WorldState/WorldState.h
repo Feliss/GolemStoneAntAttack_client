@@ -164,7 +164,10 @@ class GOLEMSTONE_ANTATTACK_API UWorldState : public UObject
 
 public:
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = WorldStateStruct)
 	FWorldStateInputStruct WorldStateInputStruct;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = WorldStateStruct)
 	FWorldStateOutputStruct WorldStateOutputStruct;
 	
 };
