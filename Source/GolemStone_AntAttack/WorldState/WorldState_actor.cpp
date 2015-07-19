@@ -79,8 +79,8 @@ void AWorldState_actor::ShowTCPLog()
 		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MOVE DIRECTION=") + WorldStateClass->WorldStateInputStruct.Move.Direction.ToString() + TEXT(" SPEED=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Move.Speed) + TEXT(" ACCELERATION=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Move.Acceleration));
 		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("LOCATION=") + WorldStateClass->WorldStateInputStruct.Location.ToString());
 		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("NickName=") + WorldStateClass->WorldStateInputStruct.NickName);
-		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MessageID=") + FString::FromInt(WorldStateClass->WorldStateInputStruct.MessagePlayerID));
-		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MyID=") + FString::FromInt(WorldStateClass->WorldStateInputStruct.MyPlayerID));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MessageID=") + WorldStateClass->WorldStateInputStruct.MessagePlayerID);
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MyID=") + WorldStateClass->WorldStateInputStruct.MyPlayerID);
 		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("CONNECTED= %s"), WorldStateClass->WorldStateInputStruct.Connected ? TEXT("true") : TEXT("false")));
 	}
 

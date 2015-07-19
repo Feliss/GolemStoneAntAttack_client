@@ -5,17 +5,24 @@
 
 
 
-//Parse text to WorldStateStruct (pointer)
+//Parse text to WorldStateStruct (pointer) (input)
 void UAntAttackParse::GetParameterStrToWorldStateStruct(FString InputString, UWorldState* WorldStateClass)
 {
 	if (InputString == "") return;
 	if (WorldStateClass == NULL) return;
 
+	
 	//const TCHAR* Delims[] = {TEXT("|")};
+	//WorldStateClass->WorldStateInputStruct.InputCommandMessage = InputString;
+
+
 	TArray<FString> ParsedStrings;
 	InputString.ParseIntoArray(ParsedStrings, TEXT("|"), false);
 
 	if (!ParsedStrings.IsValidIndex(0)) return;
+
+	//save command name
+	WorldStateClass->WorldStateInputStruct.InputCommandMessage = ParsedStrings[0];
 
 	if (ParsedStrings[0] == "ERROR")
 	{
@@ -25,13 +32,14 @@ void UAntAttackParse::GetParameterStrToWorldStateStruct(FString InputString, UWo
 
 	if (ParsedStrings[0] == "CONNECTED")
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 4, FColor::Yellow, FString("fhfgh"));
 		if (!ParsedStrings.IsValidIndex(1)) return;
-		WorldStateClass->WorldStateInputStruct.MyPlayerID = FCString::Atoi(*ParsedStrings[1]); //(my) PLAYER_ID
+		WorldStateClass->WorldStateInputStruct.MyPlayerID = ParsedStrings[1]; //(my) PLAYER_ID
 	}
 
 	if (ParsedStrings[0] != "CONNECTED" && ParsedStrings[0] != "ERROR")
 	{
-		WorldStateClass->WorldStateInputStruct.MessagePlayerID = FCString::Atoi(*ParsedStrings[0]); //(message) PLAYER_ID
+		WorldStateClass->WorldStateInputStruct.MessagePlayerID = ParsedStrings[0]; //(message) PLAYER_ID
 		if (!ParsedStrings.IsValidIndex(1)) return;
 		if (ParsedStrings[1] == "CONNECTED")
 		{

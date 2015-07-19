@@ -104,10 +104,10 @@ struct FWorldStateInputStruct
 		bool Connected;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
-		int32 MessagePlayerID;
+		FString MessagePlayerID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
-		int32 MyPlayerID;
+		FString MyPlayerID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		FString NickName;
@@ -147,8 +147,8 @@ struct FWorldStateInputStruct
 	{
 		InputCommandMessage = FString("None");
 		Connected = false;
-		MyPlayerID = FMath::RandRange(1000, 9999);
-		MessagePlayerID = 0;
+		MessagePlayerID = FString("None");
+		MyPlayerID = FString("None");
 		NickName = FString("DefaultPlayerName");
 		Location = FVector(0.f,0.f,0.f);
 		Stop = FVector(0.f, 0.f, 0.f);
