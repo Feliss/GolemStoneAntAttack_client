@@ -67,18 +67,34 @@ void AWorldState_actor::ShowTCPLog()
 
 	float DeltaTime = GetWorld()->GetDeltaSeconds();
 
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("DISCONNECT= %s"), WorldStateClass->WorldStateInputStruct.Disconnect ? TEXT("true") : TEXT("false")));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("REVIVE= %s"), WorldStateClass->WorldStateInputStruct.Revive ? TEXT("true") : TEXT("false")));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("DEATH= %s"), WorldStateClass->WorldStateInputStruct.Death ? TEXT("true") : TEXT("false")));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("HIT= %s"), WorldStateClass->WorldStateInputStruct.Hit ? TEXT("true") : TEXT("false")));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("THROW DIRECTION=") + WorldStateClass->WorldStateInputStruct.Throw.Direction.ToString() + TEXT(" SPEED=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Throw.Speed) + TEXT(" ACCELERATION=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Throw.Acceleration));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("PICK= %s"), WorldStateClass->WorldStateInputStruct.Pick ? TEXT("true") : TEXT("false")));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("STOP=") + WorldStateClass->WorldStateInputStruct.Stop.ToString());
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MOVE DIRECTION=") + WorldStateClass->WorldStateInputStruct.Move.Direction.ToString() + TEXT(" SPEED=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Move.Speed) + TEXT(" ACCELERATION=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Move.Acceleration));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("LOCATION=") + WorldStateClass->WorldStateInputStruct.Location.ToString());
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("NickName=") + WorldStateClass->WorldStateInputStruct.NickName);
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MessageID=") + FString::FromInt(WorldStateClass->WorldStateInputStruct.MessagePlayerID));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MyID=") + FString::FromInt(WorldStateClass->WorldStateInputStruct.MyPlayerID));
-	GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("CONNECTED= %s"), WorldStateClass->WorldStateInputStruct.Connected ? TEXT("true") : TEXT("false")));
+	if (isShowInputLog)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("DISCONNECT= %s"), WorldStateClass->WorldStateInputStruct.Disconnect ? TEXT("true") : TEXT("false")));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("REVIVE= %s"), WorldStateClass->WorldStateInputStruct.Revive ? TEXT("true") : TEXT("false")));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("DEATH= %s"), WorldStateClass->WorldStateInputStruct.Death ? TEXT("true") : TEXT("false")));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("HIT= %s"), WorldStateClass->WorldStateInputStruct.Hit ? TEXT("true") : TEXT("false")));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("THROW DIRECTION=") + WorldStateClass->WorldStateInputStruct.Throw.Direction.ToString() + TEXT(" SPEED=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Throw.Speed) + TEXT(" ACCELERATION=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Throw.Acceleration));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("PICK= %s"), WorldStateClass->WorldStateInputStruct.Pick ? TEXT("true") : TEXT("false")));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("STOP=") + WorldStateClass->WorldStateInputStruct.Stop.ToString());
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MOVE DIRECTION=") + WorldStateClass->WorldStateInputStruct.Move.Direction.ToString() + TEXT(" SPEED=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Move.Speed) + TEXT(" ACCELERATION=") + FString::SanitizeFloat(WorldStateClass->WorldStateInputStruct.Move.Acceleration));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("LOCATION=") + WorldStateClass->WorldStateInputStruct.Location.ToString());
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("NickName=") + WorldStateClass->WorldStateInputStruct.NickName);
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MessageID=") + FString::FromInt(WorldStateClass->WorldStateInputStruct.MessagePlayerID));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MyID=") + FString::FromInt(WorldStateClass->WorldStateInputStruct.MyPlayerID));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("CONNECTED= %s"), WorldStateClass->WorldStateInputStruct.Connected ? TEXT("true") : TEXT("false")));
+	}
+
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("DISCONNECT= %s"), WorldStateClass->WorldStateOutputStruct.Disconnect ? TEXT("true") : TEXT("false")));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("DEATH= %s"), WorldStateClass->WorldStateOutputStruct.Death ? TEXT("true") : TEXT("false")));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("HIT=" + FString::FromInt(WorldStateClass->WorldStateOutputStruct.HitID)));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("THROW DIRECTION=") + WorldStateClass->WorldStateOutputStruct.Throw.Direction.ToString() + TEXT(" SPEED=") + FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Throw.Speed) + TEXT(" ACCELERATION=") + FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Throw.Acceleration));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, FString::Printf(TEXT("PICK= %s"), WorldStateClass->WorldStateOutputStruct.Pick ? TEXT("true") : TEXT("false")));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("STOP=") + WorldStateClass->WorldStateOutputStruct.Location.ToString());
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("MOVE DIRECTION=") + WorldStateClass->WorldStateOutputStruct.Move.Direction.ToString() + TEXT(" SPEED=") + FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Move.Speed) + TEXT(" ACCELERATION=") + FString::SanitizeFloat(WorldStateClass->WorldStateOutputStruct.Move.Acceleration));
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("LOCATION=") + WorldStateClass->WorldStateOutputStruct.Location.ToString());
+		GEngine->AddOnScreenDebugMessage(-1, DeltaTime, FColor::Yellow, TEXT("NickName=") + WorldStateClass->WorldStateOutputStruct.NickName);
+	}
 }
 
