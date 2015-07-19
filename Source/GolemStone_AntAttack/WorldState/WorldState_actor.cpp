@@ -25,7 +25,7 @@ void AWorldState_actor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	ShowTCPLog();//Show World State Log
-	GetTCPValues();//Get values from TCP to WorldStateClass
+	//GetTCPValues();//Get values from TCP to WorldStateClass (run in player character for processing)
 }
 
 // Connect to TCP 

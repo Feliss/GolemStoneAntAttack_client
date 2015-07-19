@@ -98,6 +98,9 @@ struct FWorldStateInputStruct
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
+		FString InputCommandMessage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
 		bool Connected;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Default)
@@ -142,6 +145,7 @@ struct FWorldStateInputStruct
 	//defaults
 	FWorldStateInputStruct()
 	{
+		InputCommandMessage = FString("None");
 		Connected = false;
 		MyPlayerID = FMath::RandRange(1000, 9999);
 		MessagePlayerID = 0;
