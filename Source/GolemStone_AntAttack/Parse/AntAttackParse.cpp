@@ -16,45 +16,50 @@ void UAntAttackParse::GetParameterStrToWorldStateStruct(FString InputString, UWo
 	//WorldStateClass->WorldStateInputStruct.InputCommandMessage = InputString;
 
 
+
 	TArray<FString> ParsedStrings;
 	InputString.ParseIntoArray(ParsedStrings, TEXT("|"), false);
 
 	if (!ParsedStrings.IsValidIndex(0)) return;
 
-	//save command name
-	WorldStateClass->WorldStateInputStruct.InputCommandMessage = ParsedStrings[0];
-
-	if (ParsedStrings[0] == "ERROR")
+	if (ParsedStrings[0].Contains(FString("ERROR")))
 	{
 		if (!ParsedStrings.IsValidIndex(1)) return;
 		WorldStateClass->WorldStateInputStruct.ErrorText = ParsedStrings[1];//ERROR_TEXT
+		//save command name
+		WorldStateClass->WorldStateInputStruct.InputCommandMessage = ParsedStrings[0];
 	}
 
-	if (ParsedStrings[0] == "CONNECTED")
+	if (ParsedStrings[0].Contains(FString("CONNECTED")))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 4, FColor::Yellow, FString("fhfgh"));
 		if (!ParsedStrings.IsValidIndex(1)) return;
 		WorldStateClass->WorldStateInputStruct.MyPlayerID = ParsedStrings[1]; //(my) PLAYER_ID
+		//save command name
+		WorldStateClass->WorldStateInputStruct.InputCommandMessage = ParsedStrings[0];
 	}
 
-	if (ParsedStrings[0] != "CONNECTED" && ParsedStrings[0] != "ERROR")
+	if (!ParsedStrings[0].Contains(FString("CONNECTED")) && !ParsedStrings[0].Contains(FString("ERROR")))
 	{
+		//save command name
+		WorldStateClass->WorldStateInputStruct.InputCommandMessage = FString(TEXT("PL_"))+ParsedStrings[1];
+		GEngine->AddOnScreenDebugMessage(-1, 0.01, FColor::Yellow, TEXT("Inpggg"));
+
 		WorldStateClass->WorldStateInputStruct.MessagePlayerID = ParsedStrings[0]; //(message) PLAYER_ID
 		if (!ParsedStrings.IsValidIndex(1)) return;
-		if (ParsedStrings[1] == "CONNECTED")
+		if (ParsedStrings[1].Contains(FString("CONNECTED")))
 		{
 			WorldStateClass->WorldStateInputStruct.Connected = true; //CONNECTED
 			if (!ParsedStrings.IsValidIndex(2)) return;
 			WorldStateClass->WorldStateInputStruct.NickName = ParsedStrings[2]; //NICKNAME
 		}
 
-		if (ParsedStrings[1] == "LOCATION")
+		if (ParsedStrings[1].Contains(FString("LOCATION")))
 		{
 			if (!ParsedStrings.IsValidIndex(2) || !ParsedStrings.IsValidIndex(3) || !ParsedStrings.IsValidIndex(4)) return;
 			WorldStateClass->WorldStateInputStruct.Location = FVector(FCString::Atof(*ParsedStrings[2]), FCString::Atof(*ParsedStrings[3]), FCString::Atof(*ParsedStrings[4])); //X|Y|Z
 		}
 
-		if (ParsedStrings[1] == "MOVE")
+		if (ParsedStrings[1].Contains(FString("MOVE")))
 		{
 			if (!ParsedStrings.IsValidIndex(2) || !ParsedStrings.IsValidIndex(3) || !ParsedStrings.IsValidIndex(4) || !ParsedStrings.IsValidIndex(5) || !ParsedStrings.IsValidIndex(6)) return;
 			WorldStateClass->WorldStateInputStruct.Move.Direction = FVector(FCString::Atof(*ParsedStrings[2]), FCString::Atof(*ParsedStrings[3]), FCString::Atof(*ParsedStrings[4])); //X|Y|Z
@@ -62,18 +67,18 @@ void UAntAttackParse::GetParameterStrToWorldStateStruct(FString InputString, UWo
 			WorldStateClass->WorldStateInputStruct.Move.Acceleration = FCString::Atof(*ParsedStrings[6]); //ACCELERATION
 		}
 
-		if (ParsedStrings[1] == "STOP")
+		if (ParsedStrings[1].Contains(FString("STOP")))
 		{
 			if (!ParsedStrings.IsValidIndex(2) || !ParsedStrings.IsValidIndex(3) || !ParsedStrings.IsValidIndex(4)) return;
 			WorldStateClass->WorldStateInputStruct.Stop = FVector(FCString::Atof(*ParsedStrings[2]), FCString::Atof(*ParsedStrings[3]), FCString::Atof(*ParsedStrings[4])); //X|Y|Z
 		}
 
-		if (ParsedStrings[1] == "PICK")
+		if (ParsedStrings[1].Contains(FString("PICK")))
 		{
 			WorldStateClass->WorldStateInputStruct.Pick = true;
 		}
 
-		if (ParsedStrings[1] == "THROW")
+		if (ParsedStrings[1].Contains(FString("THROW")))
 		{
 			if (!ParsedStrings.IsValidIndex(2) || !ParsedStrings.IsValidIndex(3) || !ParsedStrings.IsValidIndex(4) || !ParsedStrings.IsValidIndex(5) || !ParsedStrings.IsValidIndex(6)) return;
 			WorldStateClass->WorldStateInputStruct.Throw.Direction = FVector(FCString::Atof(*ParsedStrings[2]), FCString::Atof(*ParsedStrings[3]), FCString::Atof(*ParsedStrings[4])); //X|Y|Z
@@ -81,22 +86,22 @@ void UAntAttackParse::GetParameterStrToWorldStateStruct(FString InputString, UWo
 			WorldStateClass->WorldStateInputStruct.Throw.Acceleration = FCString::Atof(*ParsedStrings[6]); //ACCELERATION
 		}
 
-		if (ParsedStrings[1] == "HIT")
+		if (ParsedStrings[1].Contains(FString("HIT")))
 		{
 			WorldStateClass->WorldStateInputStruct.Hit = true;
 		}
 
-		if (ParsedStrings[1] == "DEATH")
+		if (ParsedStrings[1].Contains(FString("DEATH")))
 		{
 			WorldStateClass->WorldStateInputStruct.Death = true;
 		}
 
-		if (ParsedStrings[1] == "REVIVE")
+		if (ParsedStrings[1].Contains(FString("REVIVE")))
 		{
 			WorldStateClass->WorldStateInputStruct.Revive = true;
 		}
 
-		if (ParsedStrings[1] == "DISCONNECT")
+		if (ParsedStrings[1].Contains(FString("DISCONNECT")))
 		{
 			WorldStateClass->WorldStateInputStruct.Disconnect = true;
 		}
