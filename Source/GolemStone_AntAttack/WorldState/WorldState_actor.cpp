@@ -41,6 +41,7 @@ void AWorldState_actor::GetTCPValues()
 	if (WorldStateClass == NULL) return;
 
 	FString TCP_Message = TCP_actor->GetTCPMessage();  //TCP_Message = FString("2564|THROW|2.6|-6.2|4.7|250.7|2.f"); //For Test!!! THROW    TCP_Message = FString("2564|DEATH");
+	GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Yellow, TCP_Message);
 
 	UAntAttackParse::GetParameterStrToWorldStateStruct(TCP_Message, WorldStateClass);//Get values from parsing and live change
 }
@@ -51,10 +52,10 @@ bool AWorldState_actor::SendTCPValues(FString CommandSend)
 	if (TCP_actor == NULL) return false;
 	if (WorldStateClass == NULL) return false;
 
-	FString TextForSendTCP = UAntAttackParse::WorldStateStructToParameterStr(CommandSend, WorldStateClass);
+	FString TextForSendTCP = UAntAttackParse::WorldStateStructToParameterStr(CommandSend, WorldStateClass) + "~";
 
 	if (ShowSendMessage)
-		GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Yellow, TextForSendTCP);
+		GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Yellow, TextForSendTCP);
 
 	return TCP_actor->SendTCPMessage(TextForSendTCP);
 }

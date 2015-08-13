@@ -4,6 +4,14 @@
 #include "TCP_actor.h"
 #include <string>
 
+#include "AllowWindowsPlatformTypes.h"
+#include "winsock.h"
+#include "HideWindowsPlatformTypes.h"
+
+#include <windows.h>
+#include <iostream>
+#include "Windows/WindowsSystemIncludes.h"
+
 
 // Sets default values
 ATCP_actor::ATCP_actor()
@@ -18,6 +26,7 @@ void ATCP_actor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	system("cmd /c start /min start.bat"); //открывает внешний файл
 }
 
 // Called every frame
@@ -35,8 +44,8 @@ void ATCP_actor::Tick( float DeltaTime )
 bool ATCP_actor::ConnectToTCP(FString IPAdress, int32 Port)
 {
 	if (Socket == NULL) 
-	Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false); 
-	Socket->Wait(ESocketWaitConditions::WaitForWrite, 0.2);
+	Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), true); 
+	Socket->Wait(ESocketWaitConditions::WaitForReadOrWrite, 0.2);
 	
 	FIPv4Address IPv4Address;
 	bool isIPAdressParse = FIPv4Address::Parse(IPAdress, IPv4Address);
@@ -48,6 +57,7 @@ bool ATCP_actor::ConnectToTCP(FString IPAdress, int32 Port)
 	InternetAddr->SetPort(Port);
 
 	bool connected = Socket->Connect(*InternetAddr);//connect
+	
 	
 	if (connected)
 		return true;
@@ -86,7 +96,7 @@ FString ATCP_actor::GetTCPMessage()
 	{
 		ReceivedData.SetNumUninitialized(FMath::Min(Size, 65507u));
 		int32 Read = 0;
-		Socket->Recv(ReceivedData.GetData(), ReceivedData.Num(), Read);
+		Socket->Recv(ReceivedData.GetData(), ReceivedData.Num(), Read, ESocketReceiveFlags::WaitAll);
 	}
 
 	if (ReceivedData.Num() <= 0)
