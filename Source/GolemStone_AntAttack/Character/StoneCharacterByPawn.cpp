@@ -20,11 +20,6 @@ AStoneCharacterByPawn::AStoneCharacterByPawn()
 	CapsuleComponent->bCheckAsyncSceneOnMove = false;
 	CapsuleComponent->bCanEverAffectNavigation = false;
 	CapsuleComponent->bDynamicObstacle = true;
-	//TWeakObjectPtr<class APhysicsVolume> PhysicsVolume;
-	APhysicsVolume** PhysicsVolume;
-	PhysicsVolume = &CapsuleComponent->GetPhysicsVolume();
-	//PhysicsVolume->SetPrePivot(FVector(0.0, 0.0, 0.0));
-	//CapsuleComponent->PhysicsVolume->SetPrePivot(FVector(0.0,0.0,0.0));
 	RootComponent = CapsuleComponent;
 
 	// Arrow
